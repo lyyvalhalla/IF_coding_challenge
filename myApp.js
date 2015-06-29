@@ -20,14 +20,14 @@ App.controller('CardsController', function($scope, getdata) {
 		  return newArr;
 		}
 		$scope.group = chunk(data.data, 3);
-
+		//img
 		for (var i=0; i<$scope.group.length; i++) {
 			$scope.toStacks = $scope.group[i]
 			// console.log($scope.toStacks);
 			for (var j=0; j<$scope.group[i].length; j++) {
 				$scope.item = $scope.group[i][j];
 				$scope.item.$index = i*(num-1)+j;
-				console.log($scope.item.$index);
+				// console.log($scope.item.$index);
 				if ($scope.item.subType === "Lecture") {
 	          		($scope.item.image = "shapes/triangle.png");
 	          	} else if ($scope.item.subType === "Award Nominee") {
@@ -42,57 +42,74 @@ App.controller('CardsController', function($scope, getdata) {
     });
 });
 
-
+// interface
 App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 	var linkFn;
 	var per = 3;
+	var temp;
 	linkFn = function(scope, element, attrs) {
-
 		
 		getdata.fetch().then(function(data){
 				var one = angular.element(element);
-				var each = angular.element(element.children());
-		
+				var each = angular.element(element.children());	
 				var index = scope.item.$index;
+				one.id = index;
 				var object = scope.item;
-				console.log(index);
-				// layout	
+				// console.log(one.id);
+				
+				// stack by 3	
 				if (index % per === 0) {
-					angular.element(element).css({
+					one.css({
 						'position': 'absolute',
-					});	
+					});
+					temp = index;	
 				} else if (index % per ===1) {
-					angular.element(element).css({
+					one.css({
 						'position': 'absolute',
 						'transform': 'translateY(' + 40 +'px ) translateZ(' + (-10) + 'px)',
 					});
 				} else if (index % per === 2) {
-					angular.element(element).css({
+					one.css({
 						'position': 'absolute',
 						'transform': 'translateY(' + 80 +'px ) translateZ(' + (-20) + 'px)'
-					});
-					
+					});			
 				}
-				
-				//image
+				if(temp != one.id) {
+					angular.element(one.children()[0]).css({
+						'top': '80%',
+						'fontSize': '16'
+					}); 
+				} else {
+					angular.element(one.children()[0]).css({
+						'top': '10%',
+						'fontSize': '25'
+					}); 
+				}
+   
+				//img style
 				angular.element(each[5]).css({
 					'top': '5%',
 					'right': '5%',
 					'position': 'absolute'
 				});
 
-				// animation
-				// var animate = function() {
-				// 	console.log("woff");
-				// 	$(this).animate({
-		  //               top: '+=50'
-		  //           });
-				// }
-				// console.log(one);
-				// $(one).on('Click', animate);
+
+				one.bind('click', function(){
+					temp = one.id;
+					console.log(temp);
+					if (temp!= one.id) {
+						angular.element(one.children()[0]).css({
+							'top': '10%',
+							'fontSize': '25'
+						}); 
+					}
+				});
+				// animate -- if top or layered
+
 
         });    
-
+		// interaction 
+		
 		
 
 		
@@ -105,23 +122,23 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
     }
 }]);
 
-
-App.directive('myCards', function($animate){
-
-
-	return {
-		restrict: 'ACE',
-		link: function(scope, element, attrs) {
-			// console.log(element);
-			element.bind('click', function(){
-				console.log("woof");
-			});
-		}
-	}
-});
+// interactions
+// App.directive('myCards', function($animate){
 
 
+// 	return {
+// 		restrict: 'ACE',
+// 		link: function(scope, element, attrs) {
+// 			// console.log(element);
+// 			element.bind('click', function(){
+// 				console.log("woof");
+// 			});
+// 		}
+// 	}
+// });
 
+
+// data
 App.factory('getdata', function($q, $timeout, $http){
 	var GetData = {
 		fetch: function(callback) {
