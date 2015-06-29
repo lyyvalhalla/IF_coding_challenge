@@ -12,15 +12,14 @@
 	<title>(*ΦωΦ*)</title>
 </head>
 <body ng-app ="myApp">
-	<ul class="container" ng-controller="CardsController as cards" id="each">
-		<li my-cards ng-repeat = "item in toStacks">
+	<div class="container" ng-controller="CardsController as cards">
+		<my-cards index={{$index}} ng-repeat = "item in toStacks">
 			<div class="item">
-				<h3>{{item.name}}</h3> <br> <h4>{{item.subType}} </h4> <br> <h5>{{item.shortDescription}} </h5>
-				<img ng-src= "{{ item.image }}" class = "imageIcon"></img> 
-				
-			</div>
-		</li>
-	</ul>
+			<h3>{{item.name}}</h3> <br> <h4>{{item.subType}} </h4> <br> <h5>{{item.shortDescription}} </h5>
+			<img ng-src= "{{ item.image }}" class = "imageIcon"></img> 
+			</div>		
+		</my-cards>
+	</div>
 </body>
 
 </html>
