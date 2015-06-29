@@ -21,20 +21,23 @@ App.controller('CardsController', function($scope, getdata) {
 		  return newArr;
 		}
 
-		group = chunk(data.data, 3);
-		console.log(group);
-		for (var i=0; i<group.length; i++) {
-			$scope.toStacks = group[i]
+		$scope.group = chunk(data.data, 3);
+		console.log($scope.group);
+		for (var i=0; i<$scope.group.length; i++) {
+			$scope.toStacks = $scope.group[i]
 			// console.log($scope.toStacks);
-			for (var j=0; j<group[i].length; j++) {
-				if (group[i][j].subType === "Lecture") {
-	          		(group[i][j].image = "shapes/triangle.png");
-	          	} else if (group[i][j].subType === "Award Nominee") {
-	          		group[i][j].image = "shapes/square.png";
-	          	} else if (group[i][j].subType === "Show") {
-	          		group[i][j].image = "shapes/circle.png";
+			for (var j=0; j<$scope.group[i].length; j++) {
+				$scope.item = $scope.group[i][j];
+				$scope.item.index = i*num+j;
+				if ($scope.item.subType === "Lecture") {
+	          		($scope.item.image = "shapes/triangle.png");
+	          	} else if ($scope.item.subType === "Award Nominee") {
+	          		$scope.item.image = "shapes/square.png";
+	          	} else if ($scope.item.subType === "Show") {
+	          		$scope.item.image = "shapes/circle.png";
 	          	}
-				console.log(group[i][j]);
+				
+				// console.log($scope.item);
 			}
 		}
 
@@ -73,8 +76,10 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 	var linkFn;
 	var per = 3;
 	linkFn = function(scope, element, attrs) {
+
 		var num, rest, tempNum;
 		getdata.fetch().then(function(data){
+			
         		var dataArray = [];
         		dataArray = data.data;
 				var tempNum = Math.floor(dataArray.length/3);
@@ -87,17 +92,16 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 				}	
 				// console.log("num: " + num + " rest: " + rest);	
 
-				var each = angular.element(element.children()[0])[0];
+				var each = angular.element(element.children());
 		
 				// angular.element(each).css({
 				// 	'transform': 'translateX(' + i +'px ) translateY(' + i +'px )',
 		  //       	'z-index': 999999 - i,
 				// });
 				// i = i + 5;
-				// console.log(each);
+				// 
 				var index = scope.index;
 				var object = (scope.$parent).item;
-
 				// scope.$watch(each.wrapper, function(newVal){
 	   //              jQuery.merge(object, element);
 	   //              if (newVal) {
@@ -106,14 +110,14 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 	   //              }
 	   //          });
 				
-
+				
 				if (object.index % per === 0) {
-					angular.element(element.children()[0]).addClass("col-md-6");
+					// angular.element(element.children()[0]).addClass("col-md-6");
 					// angular.element(element.children()[0]).removeClass("item");
-					angular.element(each).css({
-						'width': '40%',
-						// 'z-index': 0,
-						// 'position': 'relative'
+					angular.element(element).css({
+						// 'width': '40%',
+						'z-index': 0,
+						'position': 'relative'
 					});
 					
 					
@@ -122,37 +126,43 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 					// console.log((scope.$parent).item);
 					// console.log(each);
 					// angular.element(element.children()[0]).addClass("col-md-6");
-					angular.element(each).css({
+					angular.element(element).css({
 
 						// 'position': 'absolute',
 						// 'width': '40%',
-						// 'transform': 'translateX('  + 5 +'px ) translateY(' + 50 +'px )',
+						'transform': 'translateX('  + 5 +'px ) translateY(' + 50 +'px )',
 						'z-index': -1,
 					});
 				}
 				if (object.index % per === 2) {
 					// angular.element(element.children()[0]).addClass("col-md-6");
-					angular.element(each).css({
+					angular.element(element).css({
 						// 'position': 'absolute',
 						// 'width': '40%',
-						// 'transform': 'translateX(' + 5 +'px ) translateY(' + 100 +'px )',
+						'transform': 'translateX(' + 5 +'px ) translateY(' + 100 +'px )',
 						'z-index': -2,
 					});
-				}		
+				}
+				console.log(angular.element(element));
+				angular.element(each[5]).css({
+					'top': '5%',
+					'right': '5%',
+					'position': 'absolute'
+				});
+
         });    
 
-
+		
 
 		
 	};
 
 
-
     return {
         restrict: 'ACE',
-		scope: {
-            index: '@'
-        },
+		// scope: {
+  //           index: '@'
+  //       },
 		link: linkFn
     }
 }]);

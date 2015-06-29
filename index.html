@@ -13,12 +13,11 @@
 </head>
 <body ng-app ="myApp">
 	<div class="container" ng-controller="CardsController as cards">
-		<div class="col-md-6" id="all" index={{$index}}  ng-repeat = "toStacks in group">
-		<my-cards ng-repeat = "item in toStacks" ng-class="myClass">
-			<h3>{{item.name}}</h3> <br> <h4>{{item.subType}} </h4> <br> <h5>{{item.shortDescription}} </h5>
-			<img ng-src= "{{ item.image }}" class = "imageIcon"></img> 
-			</div>	
-		</my-cards>
+		<div class="col-md-6" id="all" ng-repeat = "toStacks in group">
+			<my-cards class="item" ng-repeat = "item in toStacks" index={{$index}}>
+				<h3>{{item.name}}</h3> <br> <h4>{{item.subType}} </h4> <br> <h5>{{item.shortDescription}} </h5>
+				<img ng-src= "{{ item.image }}" class = "imageIcon"></img> 	
+			</my-cards>
 		</div>
 	</div>
 </body>

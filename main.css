@@ -4,40 +4,52 @@ body {
 	background: #444444;
 }
 
-/*.container {
+.container {
 	position: absolute;
 	list-style-type: none;
 	height: 100%;
-}*/
+	width: 100%;
 
-h3{
-	position: absolute;
-	top: 30%;
-	left: 10%;
 }
 
-h4 {
+.item h3{
 	position: absolute;
-	top: 50%;
-	left: 10%;
+	top: 10%;
+	left: 5%;
+	text-align: left;
 }
-h5 {
+
+.item h4 {
 	position: absolute;
-	bottom: 10%;
-	left: 10%;
+	top: 11%;
+	left: 5%;
+	text-align: left;
+}
+.item h5 {
+	position: absolute;
+	top: 12%;
+	left: 5%;
 	text-align: left;
 	margin-right: 5%;
 }
 
+#all{
+	top: 5%;
+	left: 5%;
+	width: 40%;
+	height: 50%;
+	margin-right: 40px;
+	margin-bottom: 50px;
+	position: relative;
+}
 
-
-.item {
-	width:40%;
-	height: 40%;
+#all .item {
+	width:90%;
+	height: 90%;
 	border:1px solid #444444;
 	box-shadow:2px 2px 4px rgba(255,255,255,.5);
 	position: absolute;
-	padding: 25px 50px;
+	
 	border-radius:10px;
 	text-align:center;
 	background-color:#ECF0F1;
@@ -46,8 +58,3 @@ h5 {
 	cursor: pointer;
 }
 
-.imageIcon {
-	position: absolute;
-	top: 8%;
-	right: 5%;
-}
