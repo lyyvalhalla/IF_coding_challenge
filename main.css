@@ -4,10 +4,11 @@ body {
 	background: #444444;
 }
 
-.container {
+/*.container {
 	position: absolute;
 	list-style-type: none;
-}
+	height: 100%;
+}*/
 
 h3{
 	position: absolute;
@@ -31,12 +32,12 @@ h5 {
 
 
 .item {
-	width:360px;
-	height:240px;
+	width:40%;
+	height: 40%;
 	border:1px solid #444444;
 	box-shadow:2px 2px 4px rgba(255,255,255,.5);
-	position:relative;
-	margin:auto;
+	position: absolute;
+	padding: 25px 50px;
 	border-radius:10px;
 	text-align:center;
 	background-color:#ECF0F1;

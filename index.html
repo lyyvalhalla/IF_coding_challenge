@@ -3,22 +3,23 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="myApp.js"></script>
 	<title>(*ΦωΦ*)</title>
 </head>
 <body ng-app ="myApp">
 	<div class="container" ng-controller="CardsController as cards">
-		<my-cards index={{$index}} ng-repeat = "item in toStacks">
-			<div class="item">
+		<div class="col-md-6" id="all" index={{$index}}  ng-repeat = "toStacks in group">
+		<my-cards ng-repeat = "item in toStacks" ng-class="myClass">
 			<h3>{{item.name}}</h3> <br> <h4>{{item.subType}} </h4> <br> <h5>{{item.shortDescription}} </h5>
 			<img ng-src= "{{ item.image }}" class = "imageIcon"></img> 
-			</div>		
+			</div>	
 		</my-cards>
+		</div>
 	</div>
 </body>
 
