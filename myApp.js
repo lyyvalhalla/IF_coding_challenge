@@ -49,42 +49,45 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 	var temp;
 	linkFn = function(scope, element, attrs) {
 		
-		getdata.fetch().then(function(data){
+		
+				
 				var one = angular.element(element);
 				var each = angular.element(element.children());	
 				var index = scope.item.$index;
 				one.id = index;
 				var object = scope.item;
-				// console.log(one.id);
 				
 				// stack by 3	
-				if (index % per === 0) {
-					one.css({
-						'position': 'absolute',
-					});
-					temp = index;	
-				} else if (index % per ===1) {
-					one.css({
-						'position': 'absolute',
-						'transform': 'translateY(' + 40 +'px ) translateZ(' + (-10) + 'px)',
-					});
-				} else if (index % per === 2) {
-					one.css({
-						'position': 'absolute',
-						'transform': 'translateY(' + 80 +'px ) translateZ(' + (-20) + 'px)'
-					});			
+				function reorder() {
+					if (index % per === 0) {
+						one.css({
+							'position': 'absolute',
+						});
+						temp = index; //上
+					} else if (index % per ===1) {
+						one.css({
+							'position': 'absolute',
+							'transform': 'translateY(' + 40 +'px ) translateZ(' + (-10) + 'px)',
+						});
+					} else if (index % per === 2) {
+						one.css({
+							'position': 'absolute',
+							'transform': 'translateY(' + 80 +'px ) translateZ(' + (-20) + 'px)'
+						});			
+					}
+					if(temp != one.id) {
+						angular.element(one.children()[0]).css({
+							'top': '80%',
+							'fontSize': '16'
+						}); 
+					} else {
+						angular.element(one.children()[0]).css({
+							'top': '10%',
+							'fontSize': '25'
+						}); 
+					}
 				}
-				if(temp != one.id) {
-					angular.element(one.children()[0]).css({
-						'top': '80%',
-						'fontSize': '16'
-					}); 
-				} else {
-					angular.element(one.children()[0]).css({
-						'top': '10%',
-						'fontSize': '25'
-					}); 
-				}
+				
    
 				//img style
 				angular.element(each[5]).css({
@@ -93,26 +96,41 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
 					'position': 'absolute'
 				});
 
-
+				// interaction
 				one.bind('click', function(){
-					temp = one.id;
-					console.log(temp);
-					if (temp!= one.id) {
-						angular.element(one.children()[0]).css({
-							'top': '10%',
-							'fontSize': '25'
-						}); 
+					if (one.id === temp) {
+						var difference = angular.element(one)[0].style.transform;
+						// console.log(angular.element(one)[0].style[1]);
+						// angular.element(one.children()[0]).css({
+						// 	'top': '80%',
+						// 	'fontSize': '16',
+						// 	'transform': 'difference'
+						// }); 
+						
 					}
+					console.log(one.id);
+					 //下
+					pre = one.id;
+					one.id = temp; 
+					temp = pre;
+					// one.css({
+					// 	'position': 'absolute',
+					// 	'transform': 'translateZ(' + 3 + 'px)'
+					// });
+					// angular.element(one.children()[0]).css({
+					// 	'top': '10%',
+					// 	'fontSize': '25'
+					// }); 
+					reorder();
+				
 				});
+
+				reorder();
+
 				// animate -- if top or layered
 
 
-        });    
-		// interaction 
-		
-		
-
-		
+       		
 	};
 
 
@@ -122,20 +140,6 @@ App.directive('myCards', ['$compile', 'getdata', function($compile, getdata){
     }
 }]);
 
-// interactions
-// App.directive('myCards', function($animate){
-
-
-// 	return {
-// 		restrict: 'ACE',
-// 		link: function(scope, element, attrs) {
-// 			// console.log(element);
-// 			element.bind('click', function(){
-// 				console.log("woof");
-// 			});
-// 		}
-// 	}
-// });
 
 
 // data
